@@ -12,7 +12,7 @@ const yolo = '/assets/badges/yolo.png';
 const pullShark = '/assets/badges/pull-shark.png';
 const starstruck = '/assets/badges/starstruck.png';
 const topSql50 = '/assets/badges/top-sql-50.gif';
-const leetcode75 = '/assets/badges/leetcode_75.gif';
+const leetcode75 = '/assets/badges/LeetCode_75.gif';
 
 const images = [
   quickdraw,

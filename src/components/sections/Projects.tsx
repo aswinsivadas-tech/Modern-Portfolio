@@ -8,7 +8,19 @@ import ScrollHeading from '@/components/ui/ScrollHeading';
 import { DiaTextReveal } from '@/components/ui/dia-text-reveal';
 import { useTheme } from '@/context/ThemeContext';
 
-const projects = [
+interface Project {
+  id: string;
+  title: string;
+  category: string;
+  description: string;
+  tags: { name: string; icon: React.ElementType }[];
+  github: string;
+  live?: string;
+  image: string;
+  color: string;
+}
+
+const projects: Project[] = [
   {
     id: '01',
     title: 'RoyalKUlture-Webapp',
@@ -67,17 +79,7 @@ const projects = [
   },
 ];
 
-interface Project {
-  id: string;
-  title: string;
-  category: string;
-  description: string;
-  tags: { name: string; icon: React.ElementType }[];
-  github: string;
-  live: string;
-  image: string;
-  color: string;
-}
+
 
 function ProjectCard({ project, idx }: { project: Project; idx: number }) {
   const { theme } = useTheme();
@@ -167,14 +169,16 @@ function ProjectCard({ project, idx }: { project: Project; idx: number }) {
             </p>
 
             <div className="flex gap-4">
-              <a href={project.github} target="_blank" className={`flex items-center gap-1.5 transition-all hover:text-[#0ea5e9] ${theme === 'light' ? 'text-gray-900' : 'text-white/80'}`}>
+              <a href={project.github} target="_blank" rel="noreferrer" className={`flex items-center gap-1.5 transition-all hover:text-[#0ea5e9] ${theme === 'light' ? 'text-gray-900' : 'text-white/80'}`}>
                 <FaGithub size={16} />
                 <span className="text-[10px] font-mono font-bold tracking-[0.1em] uppercase">Code</span>
               </a>
-              <a href={project.live} target="_blank" className={`flex items-center gap-1.5 transition-all hover:text-[#0ea5e9] ${theme === 'light' ? 'text-gray-900' : 'text-white/80'}`}>
-                <ExternalLink size={14} />
-                <span className="text-[10px] font-mono font-bold tracking-[0.1em] uppercase">Demo</span>
-              </a>
+              {project.live && project.live !== '#' && (
+                <a href={project.live} target="_blank" rel="noreferrer" className={`flex items-center gap-1.5 transition-all hover:text-[#0ea5e9] ${theme === 'light' ? 'text-gray-900' : 'text-white/80'}`}>
+                  <ExternalLink size={14} />
+                  <span className="text-[10px] font-mono font-bold tracking-[0.1em] uppercase">Demo</span>
+                </a>
+              )}
             </div>
           </motion.div>
 

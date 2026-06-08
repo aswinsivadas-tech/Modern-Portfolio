@@ -131,7 +131,7 @@ export default memo(function Skills() {
   const [activeCategory, setActiveCategory] = useState('All');
 
   return (
-    <section id="skills" className="relative overflow-hidden transition-colors h-[100dvh] w-full bg-bg-primary/20 backdrop-blur-[2px]">
+    <section id="skills" className="relative overflow-hidden transition-colors h-[100dvh] w-full bg-transparent">
       {/* Background Element */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#0ea5e9]/5 rounded-full blur-[150px] pointer-events-none" />
 
