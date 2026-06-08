@@ -90,7 +90,7 @@ function RealisticAppleCard({ children, className = "" }: { children: React.Reac
         <div className="absolute inset-[1px] rounded-[2.5rem] border border-border-main opacity-50 pointer-events-none z-10" />
 
         {/* Content with Deep Parallax */}
-        <div style={{ transform: "translateZ(70px)", transformStyle: "preserve-3d" }} className="relative z-20 h-full p-4 sm:p-5">
+        <div style={{ transform: "translateZ(70px)", transformStyle: "preserve-3d" }} className="relative z-20 h-full p-3 sm:p-4">
           {children}
         </div>
       </motion.div>
@@ -172,15 +172,15 @@ export default memo(function Stats() {
               {/* Primary Stat: Solved */}
               <ScrollReveal animationNum={0} direction="left" className="h-full">
                 <RealisticAppleCardMemo className="h-full">
-                  <div className="flex flex-col h-full justify-between gap-6">
+                  <div className="flex flex-col h-full justify-between gap-4">
                     <div className="flex justify-between items-start">
-                      <div className="p-2.5 bg-amber-500/10 rounded-xl border border-amber-500/20">
-                        <Cpu className="text-amber-500" size={20} />
+                      <div className="p-2 bg-amber-500/10 rounded-xl border border-amber-500/20">
+                        <Cpu className="text-amber-500" size={18} />
                       </div>
                     </div>
                     <div className="space-y-1">
                       <p className="text-[10px] font-black text-text-secondary opacity-60 uppercase tracking-[0.3em]">Solved</p>
-                      <h4 className="text-4xl sm:text-5xl font-black text-text-primary tracking-tighter">{LEETCODE_STATS.solved.count}</h4>
+                      <h4 className="text-3xl sm:text-4xl font-black text-text-primary tracking-tighter">{LEETCODE_STATS.solved.count}</h4>
                     </div>
                     <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
                       <motion.div
@@ -197,13 +197,13 @@ export default memo(function Stats() {
               {/* Secondary Stat: Rank */}
               <ScrollReveal animationNum={1} direction="up" className="h-full">
                 <RealisticAppleCardMemo className="h-full">
-                  <div className="flex flex-col h-full justify-between gap-6">
-                    <div className="p-2.5 bg-blue-500/10 rounded-xl border border-blue-500/20 self-start">
-                      <Trophy className="text-blue-400" size={20} />
+                  <div className="flex flex-col h-full justify-between gap-4">
+                    <div className="p-2 bg-blue-500/10 rounded-xl border border-blue-500/20 self-start">
+                      <Trophy className="text-blue-400" size={18} />
                     </div>
                     <div className="space-y-1">
                       <p className="text-[10px] font-black text-text-secondary opacity-60 uppercase tracking-[0.3em]">Global Rank</p>
-                      <h4 className="text-2xl font-black text-text-primary">#{LEETCODE_STATS.rank.toLocaleString()}</h4>
+                      <h4 className="text-xl font-black text-text-primary">#{LEETCODE_STATS.rank.toLocaleString()}</h4>
                     </div>
                     <div className="py-1.5 bg-white/5 rounded-lg border border-white/5 text-center">
                       <span className="text-[9px] font-bold text-white/30 uppercase tracking-widest text-center">Top Tier Active</span>
@@ -215,12 +215,12 @@ export default memo(function Stats() {
               {/* Difficulty Breakdown */}
               <ScrollReveal animationNum={2} direction="right" className="sm:col-span-2 h-full">
                 <RealisticAppleCardMemo className="h-full">
-                  <div className="flex flex-col h-full justify-between gap-3">
-                    <div className="flex items-center gap-2 mb-1">
-                      <Layout className="text-text-secondary opacity-60" size={16} />
+                  <div className="flex flex-col h-full justify-between gap-2">
+                    <div className="flex items-center gap-2 mb-0">
+                      <Layout className="text-text-secondary opacity-60" size={14} />
                       <span className="text-[10px] font-black tracking-[0.2em] text-text-secondary opacity-60 uppercase">Distribution</span>
                     </div>
-                    <div className="space-y-4 flex-1 flex flex-col justify-center">
+                    <div className="space-y-2.5 flex-1 flex flex-col justify-center">
                       {LEETCODE_STATS.difficulty.map((d) => (
                         <div key={d.label} className="space-y-1.5">
                           <div className="flex justify-between items-center">
