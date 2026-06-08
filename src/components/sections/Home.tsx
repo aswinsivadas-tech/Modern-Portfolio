@@ -68,9 +68,9 @@ export default memo(function Home() {
       <KillianBackground />
 
       {/* Ghost title — in front of glows + dots, behind portrait */}
-      <div className="absolute inset-0 z-5 flex items-center justify-center pointer-events-none select-none">
+      <div className="absolute inset-0 z-20 sm:z-5 flex items-start sm:items-center justify-center pointer-events-none select-none pt-28 sm:pt-0">
         <motion.div
-          className="flex items-center justify-center w-full mt-[-30vh] sm:mt-[-5vh] md:mt-[-10vh]"
+          className="flex items-center justify-center w-full mt-0 sm:mt-[-5vh] md:mt-[-10vh]"
         >
           <motion.div
             className="relative w-full px-[2vw] sm:px-[5vw] md:px-[10vw]"
@@ -80,7 +80,7 @@ export default memo(function Home() {
             style={{ willChange: 'filter, opacity' }}
           >
             <h1
-              className={`flex justify-center gap-6 sm:justify-between w-full text-[13vw] sm:text-[10vw] md:text-[12vw] font-big-shoulders font-black leading-none uppercase whitespace-nowrap select-none scale-y-[1.0] scale-x-[0.9] tracking-[-0.05em] origin-center ${theme === 'dark' ? 'text-white/40' : 'text-black/[0.3]'
+              className={`flex flex-col sm:flex-row justify-center items-center gap-0 sm:gap-6 sm:justify-between w-full text-[20vw] sm:text-[10vw] md:text-[12vw] font-big-shoulders font-black leading-none uppercase whitespace-nowrap select-none scale-y-[1.0] scale-x-[0.9] tracking-[-0.05em] origin-center ${theme === 'dark' ? 'text-white/40' : 'text-black/[0.3]'
                 }`}
             >
               <span>ASWIN</span>
@@ -99,7 +99,7 @@ export default memo(function Home() {
 
             {/* Revealed version of the text */}
             <motion.h1
-              className={`absolute inset-0 flex justify-center gap-6 sm:justify-between w-full px-[2vw] sm:px-[5vw] md:px-[10vw] text-[13vw] sm:text-[10vw] md:text-[12vw] font-big-shoulders font-black leading-none uppercase whitespace-nowrap select-none scale-y-[1.0] scale-x-[0.9] tracking-[-0.05em] origin-center ${theme === 'dark' ? 'text-white' : 'text-black'
+              className={`absolute inset-0 flex flex-col sm:flex-row justify-center items-center gap-0 sm:gap-6 sm:justify-between w-full px-[2vw] sm:px-[5vw] md:px-[10vw] text-[20vw] sm:text-[10vw] md:text-[12vw] font-big-shoulders font-black leading-none uppercase whitespace-nowrap select-none scale-y-[1.0] scale-x-[0.9] tracking-[-0.05em] origin-center ${theme === 'dark' ? 'text-white' : 'text-black'
                 }`}
               style={{
                 WebkitMaskImage: maskImage,

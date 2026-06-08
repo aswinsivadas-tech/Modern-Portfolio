@@ -21,8 +21,16 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('Home');
+  const [isMobile, setIsMobile] = useState(false);
   const { theme, toggleTheme } = useTheme();
   const lenis = useLenis();
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -74,7 +82,7 @@ export default function Navbar() {
     <>
       <motion.header
         initial={{ y: -100, opacity: 0 }}
-        animate={{ y: isScrolled ? 0 : -100, opacity: isScrolled ? 1 : 0 }}
+        animate={{ y: (isMobile ? !isScrolled : isScrolled) ? 0 : -100, opacity: (isMobile ? !isScrolled : isScrolled) ? 1 : 0 }}
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         className="fixed top-2 md:top-2 left-1/2 -translate-x-1/2 z-[100] transition-all duration-300 w-[95%] max-w-6xl pointer-events-auto"
       >
