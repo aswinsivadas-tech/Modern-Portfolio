@@ -87,13 +87,13 @@ function ContactLink({ icon, label, value, href, type, color = 'var(--accent-ora
     <Container
       {...containerProps}
       onClick={type === 'copy' ? handleAction : undefined}
-      className="relative flex items-center justify-between p-5 rounded-2xl border border-border-main/50 bg-bg-primary/40 hover:bg-bg-secondary/60 transition-all duration-500 group/item cursor-pointer overflow-hidden transform-gpu backface-hidden will-change-transform shadow-sm hover:shadow-md"
+      className="relative flex items-center justify-between p-4 sm:p-5 rounded-2xl border border-border-main/50 bg-bg-primary/40 hover:bg-bg-secondary/60 transition-all duration-500 group/item cursor-pointer overflow-hidden transform-gpu backface-hidden will-change-transform shadow-sm hover:shadow-md"
     >
       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-border-main/30 to-transparent translate-x-[-100%] group-hover/item:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
 
-      <div className="relative z-10 flex items-center gap-5 transform-gpu translate-z-0">
+      <div className="relative z-10 flex items-center gap-3 sm:gap-5 transform-gpu translate-z-0 min-w-0">
         <div
-          className="w-12 h-12 rounded-xl bg-bg-secondary/30 flex items-center justify-center text-text-secondary transition-all duration-500 group-hover/item:scale-110 group-hover/item:bg-bg-secondary/50 transform-gpu backface-hidden"
+          className="w-10 h-10 sm:w-12 sm:h-12 shrink-0 rounded-xl bg-bg-secondary/30 flex items-center justify-center text-text-secondary transition-all duration-500 group-hover/item:scale-110 group-hover/item:bg-bg-secondary/50 transform-gpu backface-hidden"
         >
           <div className="relative z-10 group-hover/item:text-[var(--hover-color)] transition-colors duration-500" style={{ '--hover-color': color } as any}>
             {icon}
@@ -103,9 +103,9 @@ function ContactLink({ icon, label, value, href, type, color = 'var(--accent-ora
             style={{ '--hover-color': color } as any}
           />
         </div>
-        <div className="transform-gpu translate-z-0">
-          <p className="text-[10px] font-black text-text-secondary uppercase tracking-[0.25em] mb-1 opacity-80 group-hover/item:opacity-100 transition-opacity subpixel-antialiased">{label}</p>
-          <p className="text-base font-bold text-text-primary tracking-tight group-hover/item:text-text-primary transition-colors subpixel-antialiased">{value}</p>
+        <div className="transform-gpu translate-z-0 min-w-0 flex-1">
+          <p className="text-[10px] font-black text-text-secondary uppercase tracking-[0.25em] mb-1 opacity-80 group-hover/item:opacity-100 transition-opacity subpixel-antialiased truncate">{label}</p>
+          <p className="text-sm sm:text-base font-bold text-text-primary tracking-tight group-hover/item:text-text-primary transition-colors subpixel-antialiased truncate">{value}</p>
         </div>
       </div>
 
@@ -168,7 +168,7 @@ export default memo(function Contact() {
                   color="#f97316"
                   onCopy={copyEmail}
                 />
-                <div className="grid grid-cols-2 gap-3 transform-gpu translate-z-0">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 transform-gpu translate-z-0">
                   <ContactLink
                     icon={<SiWhatsapp size={18} />}
                     label="WhatsApp"
@@ -203,7 +203,7 @@ export default memo(function Contact() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-2 transform-gpu translate-z-0">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 transform-gpu translate-z-0">
                 {SOCIAL_LINKS.map((social) => (
                   <a
                     key={social.name}
