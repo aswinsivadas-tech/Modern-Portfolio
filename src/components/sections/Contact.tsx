@@ -10,7 +10,7 @@ const SOCIAL_LINKS = [
   { name: 'LinkedIn', icon: <FaLinkedin size={22} />, url: 'https://www.linkedin.com/in/aswinsivadas-tech/', handle: 'linkedin.com/in/aswinsivadas-tech', color: '#0077b5' },
   { name: 'GitHub', icon: <SiGithub size={22} />, url: 'https://github.com/aswinsivadas-tech', handle: 'github.com/aswinsivadas-tech', color: '#ffffff' },
   { name: 'LeetCode', icon: <SiLeetcode size={22} />, url: 'https://leetcode.com/u/Aswinsivadas/', handle: 'leetcode.com/u/Aswinsivadas/', color: '#FFA116' },
-  { name: 'Dev.to', icon: <SiDevdotto size={22} />, url: 'https://dev.to/aswinsivadas-tech', handle: 'dev.to/aswinsivadas-tech', color: '#ffffff' },
+  { name: 'Dev.to', icon: <SiDevdotto size={22} />, url: 'https://dev.to/aswinsivadas', handle: 'dev.to/aswinsivadas', color: '#ffffff' },
   // { name: 'Instagram', icon: <SiInstagram size={22} />, url: 'https://instagram.com/#', handle: 'instagram.com/#', color: '#E4405F' },
 ];
 

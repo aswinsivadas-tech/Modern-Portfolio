@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { SiGithub, SiLeetcode, SiWhatsapp, SiInstagram, SiDevdotto } from 'react-icons/si';
+import { SiGithub, SiLeetcode, SiWhatsapp, SiDevdotto } from 'react-icons/si';
 import { FaLinkedin } from 'react-icons/fa';
-import { Mail } from 'lucide-react';
+import { Mail, Check } from 'lucide-react';
 import GradientText from '@/components/ui/GradientText';
 
 const NAV_LINKS = [
@@ -36,17 +36,17 @@ const SOCIAL_LINKS = [
   },
   {
     label: "WhatsApp",
-    href: "https://wa.me/918921627502",
+    href: "https://wa.me/919539820532",
     icon: <SiWhatsapp size={20} />,
   },
-  {
-    label: "Instagram",
-    href: "https://instagram.com/aswinsivadas-tech",
-    icon: <SiInstagram size={20} />,
-  },
+  // {
+  //   label: "Instagram",
+  //   href: "https://instagram.com/#",
+  //   icon: <SiInstagram size={20} />,
+  // },
   {
     label: "Dev.to",
-    href: "https://dev.to/aswinsivadas-tech",
+    href: "https://dev.to/aswinsivadas",
     icon: <SiDevdotto size={20} />,
   },
   {
@@ -71,6 +71,7 @@ function MagneticIcon({ children, href, label }: MagneticIconProps) {
   const ref = useRef<HTMLAnchorElement>(null);
   const [pos, setPos] = useState({ x: 0, y: 0 });
   const [hovered, setHovered] = useState(false);
+  const [copied, setCopied] = useState(false);
   const onMove = (e: React.MouseEvent) => {
     if (!ref.current) return;
     const r = ref.current.getBoundingClientRect();
@@ -78,7 +79,16 @@ function MagneticIcon({ children, href, label }: MagneticIconProps) {
   };
   const onLeave = () => { setPos({ x: 0, y: 0 }); setHovered(false); };
   return (
-    <a ref={ref} href={href} aria-label={label} target="_blank" rel="noopener noreferrer"
+    <a ref={ref} href={href} aria-label={label} target={href.startsWith('mailto:') ? undefined : "_blank"} rel={href.startsWith('mailto:') ? undefined : "noopener noreferrer"}
+      onClick={(e) => {
+        if (href.startsWith('mailto:')) {
+          e.preventDefault();
+          const email = href.replace('mailto:', '');
+          navigator.clipboard.writeText(email);
+          setCopied(true);
+          setTimeout(() => setCopied(false), 2000);
+        }
+      }}
       onMouseMove={onMove} onMouseEnter={() => setHovered(true)} onMouseLeave={onLeave}
       style={{
         width: 43, height: 43, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center",
@@ -89,7 +99,7 @@ function MagneticIcon({ children, href, label }: MagneticIconProps) {
         boxShadow: hovered ? "0 0 22px rgba(234,88,12,.45)" : "none",
         transition: "all .2s",
       }}>
-      {children}
+      {copied ? <Check size={20} className="text-green-500" /> : children}
     </a>
   );
 }
@@ -219,21 +229,21 @@ export default function Footer() {
           <a href="#contact"
             onMouseEnter={() => setBtnHovered(true)}
             onMouseLeave={() => setBtnHovered(false)}
-            style={{ 
-              display: "inline-flex", 
-              alignItems: "center", 
-              gap: 9, 
-              padding: "13px 28px", 
-              borderRadius: 50, 
-              background: "linear-gradient(135deg,#ea580c,#f97316,#fb923c)", 
-              color: "#fff", 
-              fontSize: 13, 
-              fontWeight: 600, 
-              letterSpacing: "0.04em", 
-              textDecoration: "none", 
-              boxShadow: btnHovered ? "0 0 56px rgba(234,88,12,.72),inset 0 1px 0 rgba(255,255,255,.2)" : "0 0 32px rgba(234,88,12,.5),inset 0 1px 0 rgba(255,255,255,.2)", 
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 9,
+              padding: "13px 28px",
+              borderRadius: 50,
+              background: "linear-gradient(135deg,#ea580c,#f97316,#fb923c)",
+              color: "#fff",
+              fontSize: 13,
+              fontWeight: 600,
+              letterSpacing: "0.04em",
+              textDecoration: "none",
+              boxShadow: btnHovered ? "0 0 56px rgba(234,88,12,.72),inset 0 1px 0 rgba(255,255,255,.2)" : "0 0 32px rgba(234,88,12,.5),inset 0 1px 0 rgba(255,255,255,.2)",
               transform: btnHovered ? "scale(1.07) translateY(-3px)" : "none",
-              transition: "transform .28s cubic-bezier(.34,1.56,.64,1), boxShadow .25s" 
+              transition: "transform .28s cubic-bezier(.34,1.56,.64,1), boxShadow .25s"
             }}>
             Let's work together
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} width={14} height={14}
@@ -274,7 +284,7 @@ export default function Footer() {
           </motion.div>
 
           {/* Navigate */}
-          <motion.div 
+          <motion.div
             variants={{ initial: { y: 30, opacity: 0 }, whileInView: { y: 0, opacity: 1, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } } }}>
             <p style={{ fontFamily: "'Syne',sans-serif", fontSize: 10, fontWeight: 700, letterSpacing: "0.16em", color: "var(--color-cinematic-accent)", opacity: 0.7, textTransform: "uppercase", marginBottom: 18 }}>Navigate</p>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "10px 20px" }}>
