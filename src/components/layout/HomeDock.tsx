@@ -37,7 +37,7 @@ const mainDockItems: DockItemType[] = [
 const secondaryDockItems: DockItemType[] = [
   { icon: terminalIcon, label: 'Terminal', url: '#' },
   { icon: vscodeIcon, label: 'VS Code', url: '#' },
-  { icon: settingsIcon, label: 'Settings', url: '#' },
+  { icon: settingsIcon, label: 'Resume', url: '/assets/cv/AswinSivadas-CV2026.pdf' },
 ];
 
 const DOCK_HOVER_SCALE = 1.55;
