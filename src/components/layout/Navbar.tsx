@@ -80,6 +80,11 @@ export default function Navbar() {
       >
         <div className="flex items-center justify-between bg-black/60 backdrop-blur-xl border border-white/10 rounded-full px-4 sm:px-6 py-2.5 shadow-2xl">
 
+          {/* Logo for mobile / tablet */}
+          <div className="xl:hidden font-black text-white text-lg tracking-widest mr-auto pl-2">
+            ASWIN.
+          </div>
+
           {/* Desktop Navigation */}
           <nav className="hidden xl:flex items-center gap-2 flex-grow justify-center relative">
             {navLinks.map((link) => (
