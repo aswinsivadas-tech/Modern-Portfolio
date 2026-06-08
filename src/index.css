@@ -1,0 +1,182 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Big+Shoulders+Display:wght@100..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-bebas: "Bebas Neue", sans-serif;
+  --font-anton: "Anton", sans-serif;
+  --font-big-shoulders: "Big Shoulders Display", sans-serif;
+  --color-bg-primary: #000000;
+  --color-bg-secondary: #050505;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #e4e4e7;
+  --color-border-main: rgba(255, 255, 255, 0.15);
+
+  /* Extra Brand Colors */
+  --color-accent-blue: #3b82f6;
+  --color-accent-orange: #c4521a;
+  --color-cinematic-accent: #c4521a;
+  --color-cinematic-glow: rgba(56, 189, 248, 0.5);
+  /* Stronger neon cyan */
+
+  --animate-spotlight: spotlight 2s ease 0.75s 1 forwards;
+  --animate-spotlight-right: spotlight-right 2s ease 0.75s 1 forwards;
+}
+
+@keyframes spotlight {
+  0% {
+    opacity: 0;
+    transform: translate(-72%, -62%) scale(0.5);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -40%) scale(1);
+  }
+}
+
+@keyframes spotlight-right {
+  0% {
+    opacity: 0;
+    transform: translate(72%, -62%) scale(0.5) scaleX(-1);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(50%, -40%) scale(1) scaleX(-1);
+  }
+}
+
+@layer base {
+  .light {
+    --color-bg-primary: #e2e8f0;
+    --color-bg-secondary: #ffffff;
+    --color-text-primary: #020617;
+    --color-text-secondary: #1e293b;
+    --color-border-main: rgba(0, 0, 0, 0.15);
+    --color-cinematic-accent: #c4521a;
+    --color-cinematic-glow: rgba(14, 165, 233, 0.1);
+  }
+}
+
+@layer base {
+  body {
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    font-family:
+      ui-sans-serif,
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      'Helvetica Neue',
+      Arial,
+      'Noto Sans',
+      sans-serif;
+    overflow-x: hidden;
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+    cursor: none !important;
+  }
+}
+
+/* Ensure no default hover pointer icons appear anywhere */
+*,
+*::before,
+*::after {
+  cursor: none !important;
+}
+
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-main);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-secondary);
+}
+
+/* Reset for App root */
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Text shimmer for terminal hint */
+@keyframes text-shimmer {
+  0% {
+    background-position: 200% center;
+  }
+
+  100% {
+    background-position: -200% center;
+  }
+}
+
+.animate-text-shimmer {
+  background-size: 200% auto;
+  background-image: linear-gradient(90deg,
+      #0891b2 0%,
+      #22d3ee 25%,
+      #67e8f9 50%,
+      #22d3ee 75%,
+      #0891b2 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: text-shimmer 2.5s linear infinite;
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* View Transitions for Animated Theme Toggler */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+  display: block;
+  position: absolute;
+  inset: 0;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 999;
+}
+
+html[data-magicui-theme-vt="active"]::view-transition-group(root) {
+  animation-duration: var(--magicui-theme-toggle-vt-duration);
+}
+
+/* Disable global transitions when theme transition is in flight to prevent jitters */
+html[data-magicui-theme-vt="active"],
+html[data-magicui-theme-vt="active"] body,
+html[data-magicui-theme-vt="active"] *,
+html[data-magicui-theme-vt="active"] *::before,
+html[data-magicui-theme-vt="active"] *::after {
+  transition: none !important;
+}
