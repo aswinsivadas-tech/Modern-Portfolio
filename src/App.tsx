@@ -68,8 +68,8 @@ function MainContent({ mainRef }: { mainRef: React.RefObject<HTMLElement | null>
         {/* Dynamic Global Particles - Deepest Layer */}
         <Particles
           className="absolute inset-0 opacity-50"
-          quantity={typeof window !== 'undefined' && window.innerWidth < 768 ? 15 : 25}
-          ease={100}
+          quantity={typeof window !== 'undefined' && window.innerWidth < 768 ? 40 : 100}
+          ease={80}
           color={theme === 'dark' ? '#ffffff' : '#000000'}
           staticity={30}
           refresh
@@ -79,8 +79,8 @@ function MainContent({ mainRef }: { mainRef: React.RefObject<HTMLElement | null>
           <div className="absolute inset-0 w-full h-full opacity-70 mix-blend-screen">
             <LiquidEther
               colors={['#0ea5e9', '#8b1e00', '#d97706']}
-              isViscous={false}
-              iterationsPoisson={8}
+              isViscous={true}
+              viscous={10}
               mouseForce={15}
               cursorSize={80}
             />
