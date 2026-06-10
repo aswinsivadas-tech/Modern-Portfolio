@@ -47,7 +47,7 @@ function MainContent({ mainRef }: { mainRef: React.RefObject<HTMLElement | null>
       {/* Intro Startup Animation */}
       <MacStartup />
 
-      <CustomCursor />
+      {!isMobile && <CustomCursor />}
 
 
       {/* macOS-style top strip — same visibility as HomeDock (hero / near top only) */}

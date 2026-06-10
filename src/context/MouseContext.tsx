@@ -24,19 +24,21 @@ export function MouseProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
+      if (window.innerWidth < 768) return; // Skip on mobile
       positionRef.current = { x: e.clientX, y: e.clientY };
       globalMousePos.x = e.clientX;
       globalMousePos.y = e.clientY;
     };
 
     const handleMouseOver = (e: MouseEvent) => {
+      if (window.innerWidth < 768) return; // Skip on mobile
       const target = e.target as HTMLElement;
       const isInteractive =
         target.tagName === 'A' ||
         target.tagName === 'BUTTON' ||
         target.closest('button') ||
         target.closest('a') ||
-        window.getComputedStyle(target).cursor === 'pointer';
+        target.classList.contains('cursor-pointer');
 
       setIsHovering(Boolean(isInteractive));
     };
