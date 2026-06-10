@@ -44,15 +44,17 @@ export default memo(function MacStartup() {
           className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#000000]"
         >
           {/* Silk Background Layer */}
-          <div className="absolute inset-0 z-0 opacity-40 mix-blend-screen">
-            <Silk
-              speed={5}
-              scale={1}
-              color="#0ea5e9"
-              noiseIntensity={1.5}
-              rotation={0}
-            />
-          </div>
+          {!isMobile && (
+            <div className="absolute inset-0 z-0 opacity-40 mix-blend-screen">
+              <Silk
+                speed={5}
+                scale={1}
+                color="#0ea5e9"
+                noiseIntensity={1.5}
+                rotation={0}
+              />
+            </div>
+          )}
 
           {/* Hidden SVG Filter for Fluid Distortion - DISABLED ON MOBILE */}
           {!isMobile && (
