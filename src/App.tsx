@@ -144,15 +144,17 @@ function MainContent({ mainRef }: { mainRef: React.RefObject<HTMLElement | null>
         </div>
 
         {/* Normal scroll sections — no stacking */}
-        <Experience />
-        <Education />
-        <Skills />
-        <Services />
-        <Projects />
-        <Stats />
-        <Badges />
-        <Contact />
-        <Footer />
+        <div className="border-t border-white/10 [body.light_&]:border-black/10 divide-y divide-white/10 [body.light_&]:divide-black/10">
+          <Experience />
+          <Education />
+          <Skills />
+          <Services />
+          <Projects />
+          <Stats />
+          <Badges />
+          <Contact />
+          <Footer />
+        </div>
       </main>
 
       {/* Footer */}

@@ -109,14 +109,17 @@ export default memo(function Experience() {
 
                     {exp.tags && (
                       <div className="mt-6 flex flex-wrap gap-2 sm:gap-2.5">
-                        {exp.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="px-3 py-1 text-xs sm:text-[13px] font-medium text-text-primary/80 bg-white/[0.05] border border-white/10 rounded-full hover:bg-white/[0.1] hover:border-white/20 hover:text-text-primary transition-colors cursor-default"
-                          >
-                            {tag}
-                          </span>
-                        ))}
+                        {exp.tags.map((tag) => {
+                          const isLongTag = ['api development', 'backend development', 'frontend development', 'full stack development', 'Training & Internship'].includes(tag);
+                          return (
+                            <span
+                              key={tag}
+                              className={`px-3 py-1 text-xs sm:text-[13px] font-medium text-text-primary/80 bg-white/[0.05] border border-white/10 rounded-full hover:bg-white/[0.1] hover:border-white/20 hover:text-text-primary transition-colors cursor-default ${isLongTag ? 'hidden sm:inline-flex' : 'inline-flex'}`}
+                            >
+                              {tag}
+                            </span>
+                          );
+                        })}
                       </div>
                     )}
                   </div>
