@@ -60,7 +60,7 @@ function MainContent({ mainRef }: { mainRef: React.RefObject<HTMLElement | null>
       <ScrollToTop />
 
       {/* Lenis ↔ GSAP ScrollTrigger sync */}
-      <GSAPScrollSync />
+      {!isMobile && <GSAPScrollSync />}
 
       {/* 3D Global Object that follows scroll */}
       {!isMobile && <ScrollAnimatedObject />}
@@ -68,14 +68,16 @@ function MainContent({ mainRef }: { mainRef: React.RefObject<HTMLElement | null>
       {/* Global Cinematic Background System */}
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
         {/* Dynamic Global Particles - Deepest Layer */}
-        <Particles
-          className="absolute inset-0 opacity-50"
-          quantity={isMobile ? 20 : (typeof window !== 'undefined' && window.innerWidth < 768 ? 40 : 100)}
-          ease={80}
-          color={theme === 'dark' ? '#ffffff' : '#000000'}
-          staticity={30}
-          refresh
-        />
+        {!isMobile && (
+          <Particles
+            className="absolute inset-0 opacity-50"
+            quantity={typeof window !== 'undefined' && window.innerWidth < 768 ? 40 : 100}
+            ease={80}
+            color={theme === 'dark' ? '#ffffff' : '#000000'}
+            staticity={30}
+            refresh
+          />
+        )}
         {/* Global Interactive LiquidEther - ONLY IN DARK MODE */}
         {!isMobile && theme === 'dark' && (
           <div className="absolute inset-0 w-full h-full opacity-70 mix-blend-screen">
@@ -171,11 +173,13 @@ function MainContent({ mainRef }: { mainRef: React.RefObject<HTMLElement | null>
 
 function App() {
   const mainRef = useRef<HTMLElement>(null);
-  useStackedPanels(mainRef);
+  const isMobile = useIsMobile();
+  useStackedPanels(mainRef, isMobile);
 
   const lenisRef = useRef<any>(null);
 
   useEffect(() => {
+    if (isMobile) return;
     function update(time: number) {
       lenisRef.current?.lenis?.raf(time * 1000);
     }
@@ -186,7 +190,7 @@ function App() {
     return () => {
       gsap.ticker.remove(update);
     };
-  }, []);
+  }, [isMobile]);
 
   return (
     <ReactLenis

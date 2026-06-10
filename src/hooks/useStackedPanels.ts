@@ -8,9 +8,9 @@ gsap.registerPlugin(ScrollTrigger);
  * Optimized Stacked Panel effect (Home -> About only).
  * Highly stable, handles refreshes correctly, and prevents "half-page" overlaps.
  */
-export function useStackedPanels(containerRef: RefObject<HTMLElement | null>) {
+export function useStackedPanels(containerRef: RefObject<HTMLElement | null>, isMobile: boolean = false) {
   useEffect(() => {
-    if (!containerRef.current) return;
+    if (!containerRef.current || isMobile) return;
 
     // Use a slight delay to ensure browser has settled (especially for Lenis/ScrollTrigger interaction)
     const timeoutId = setTimeout(() => {
