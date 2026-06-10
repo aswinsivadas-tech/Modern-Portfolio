@@ -31,7 +31,7 @@ export default function CometBackground() {
 
     let W: number, H: number, animId: number;
     const comets: Comet[] = [];
-    const COUNT = 8;
+    const COUNT = 4;
 
     const resize = () => {
       W = canvas.width = window.innerWidth;

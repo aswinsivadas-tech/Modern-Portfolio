@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
+import { gsap } from 'gsap';
 
 import Home from '@/components/sections/Home';
 import About from '@/components/sections/About';
@@ -36,21 +37,6 @@ import ScrollAnimatedObject from '@/components/animations/ScrollAnimatedObject';
 
 function MainContent({ mainRef }: { mainRef: React.RefObject<HTMLElement | null> }) {
   const { theme } = useTheme();
-  const isAtTop = useRef(true);
-  const [_, setTick] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const atTop = window.scrollY < 1200;
-      if (atTop !== isAtTop.current) {
-        isAtTop.current = atTop;
-        setTick(t => t + 1); // Force re-render to mount/unmount heavy effects
-      }
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
 
   return (
 
@@ -82,8 +68,8 @@ function MainContent({ mainRef }: { mainRef: React.RefObject<HTMLElement | null>
         {/* Dynamic Global Particles - Deepest Layer */}
         <Particles
           className="absolute inset-0 opacity-50"
-          quantity={typeof window !== 'undefined' && window.innerWidth < 768 ? 40 : 100}
-          ease={80}
+          quantity={typeof window !== 'undefined' && window.innerWidth < 768 ? 15 : 25}
+          ease={100}
           color={theme === 'dark' ? '#ffffff' : '#000000'}
           staticity={30}
           refresh
@@ -93,8 +79,8 @@ function MainContent({ mainRef }: { mainRef: React.RefObject<HTMLElement | null>
           <div className="absolute inset-0 w-full h-full opacity-70 mix-blend-screen">
             <LiquidEther
               colors={['#0ea5e9', '#8b1e00', '#d97706']}
-              isViscous={true}
-              viscous={10}
+              isViscous={false}
+              iterationsPoisson={8}
               mouseForce={15}
               cursorSize={80}
             />
@@ -181,16 +167,31 @@ function App() {
   const mainRef = useRef<HTMLElement>(null);
   useStackedPanels(mainRef);
 
+  const lenisRef = useRef<any>(null);
+
+  useEffect(() => {
+    function update(time: number) {
+      lenisRef.current?.lenis?.raf(time * 1000);
+    }
+    
+    gsap.ticker.add(update);
+    gsap.ticker.lagSmoothing(0);
+    
+    return () => {
+      gsap.ticker.remove(update);
+    };
+  }, []);
+
   return (
     <ReactLenis
       root
+      ref={lenisRef}
+      autoRaf={false}
       options={{
-        lerp: 0.1,
-        duration: 1.2,
+        lerp: 0.08,
         smoothWheel: true,
         wheelMultiplier: 1,
-        touchMultiplier: 2,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+        touchMultiplier: 2
       }}
     >
 

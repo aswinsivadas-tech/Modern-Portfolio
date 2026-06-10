@@ -17,9 +17,20 @@ export const KillianBackground: React.FC = memo(() => {
 
   useEffect(() => {
     let rafId: number;
+    let lastX = 0;
+    let lastY = 0;
+    
     const update = () => {
-      mouseX.set(positionRef.current.x);
-      mouseY.set(positionRef.current.y);
+      const currentX = positionRef.current.x;
+      const currentY = positionRef.current.y;
+      
+      if (currentX !== lastX || currentY !== lastY) {
+        mouseX.set(currentX);
+        mouseY.set(currentY);
+        lastX = currentX;
+        lastY = currentY;
+      }
+      
       rafId = requestAnimationFrame(update);
     };
     rafId = requestAnimationFrame(update);

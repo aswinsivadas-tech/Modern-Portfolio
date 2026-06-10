@@ -13,9 +13,9 @@ const experiences = [
     location: 'On-site',
     description: 'A certified internship program in MERN Stack Development, covering MongoDB, Express.js, React, and Node.js. Focused on building dynamic, responsive, and scalable full-stack web applications through hands-on, project-based learning.',
     tags: [
-      'React.js', 'Node.js', 'Express.js', 'PostgreSQL', 'MongoDB', 'TypeScript', 
-      'AWS', 'Docker', 'Redis', 'postman', 'Git & GitHub', 'api development', 
-      'backend development', 'frontend development', 'full stack development', 
+      'React.js', 'Node.js', 'Express.js', 'PostgreSQL', 'MongoDB', 'TypeScript',
+      'AWS', 'Docker', 'Redis', 'postman', 'Git & GitHub', 'api development',
+      'backend development', 'frontend development', 'full stack development',
       'Training & Internship'
     ]
   }
@@ -56,7 +56,7 @@ export default memo(function Experience() {
           <div className="space-y-12">
             {experiences.map((exp) => (
               <div key={exp.id} className="relative pl-16 sm:pl-24">
-                
+
                 {/* Timeline Dot */}
                 <div className="absolute left-5 sm:left-8 top-10 w-4 h-4 rounded-full bg-[#3b82f6] shadow-[0_0_15px_rgba(59,130,246,0.6)] z-10" />
 
@@ -80,11 +80,11 @@ export default memo(function Experience() {
                       <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-white/[0.05] flex items-center justify-center shrink-0 border border-white/10 mt-1 shadow-lg group-hover:scale-110 transition-transform duration-500">
                         <Briefcase className="text-text-primary/90" size={20} />
                       </div>
-                      
+
                       <div className="flex flex-col">
                         <h3 className="text-lg sm:text-xl font-bold text-text-primary leading-tight mb-1">{exp.role}</h3>
                         <span className="text-text-primary/80 font-semibold text-sm mb-2">{exp.company}</span>
-                        
+
                         <div className="flex flex-wrap items-center gap-4 text-text-secondary text-xs sm:text-sm">
                           <div className="flex items-center gap-1.5">
                             <Calendar size={14} />
@@ -110,8 +110,8 @@ export default memo(function Experience() {
                     {exp.tags && (
                       <div className="mt-6 flex flex-wrap gap-2 sm:gap-2.5">
                         {exp.tags.map((tag) => (
-                          <span 
-                            key={tag} 
+                          <span
+                            key={tag}
                             className="px-3 py-1 text-xs sm:text-[13px] font-medium text-text-primary/80 bg-white/[0.05] border border-white/10 rounded-full hover:bg-white/[0.1] hover:border-white/20 hover:text-text-primary transition-colors cursor-default"
                           >
                             {tag}
