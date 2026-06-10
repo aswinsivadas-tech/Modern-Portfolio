@@ -47,14 +47,24 @@
 }
 
 @layer base {
+  html {
+    font-size: 105%;
+  }
+
   .light {
-    --color-bg-primary: #e2e8f0;
+    --color-bg-primary: #f8fafc;
     --color-bg-secondary: #ffffff;
-    --color-text-primary: #020617;
+    --color-text-primary: #000000;
     --color-text-secondary: #1e293b;
     --color-border-main: rgba(0, 0, 0, 0.15);
     --color-cinematic-accent: #c4521a;
     --color-cinematic-glow: rgba(14, 165, 233, 0.1);
+  }
+
+  .light body {
+    -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: auto;
+    font-weight: 500;
   }
 }
 
