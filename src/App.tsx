@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { gsap } from 'gsap';
 
 import Home from '@/components/sections/Home';
@@ -175,10 +175,10 @@ function App() {
     function update(time: number) {
       lenisRef.current?.lenis?.raf(time * 1000);
     }
-    
+
     gsap.ticker.add(update);
     gsap.ticker.lagSmoothing(0);
-    
+
     return () => {
       gsap.ticker.remove(update);
     };
