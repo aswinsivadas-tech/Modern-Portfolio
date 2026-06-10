@@ -1,7 +1,7 @@
 import { useState, useEffect, memo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { executeThemeTransition } from '@/lib/theme-transition';
-import Lightfall from '@/components/ui/Lightfall';
+import Silk from '@/components/ui/Silk';
 
 export default memo(function MacStartup() {
   const [show, setShow] = useState(true);
@@ -11,12 +11,12 @@ export default memo(function MacStartup() {
     document.body.style.overflow = 'hidden';
 
     const timer = setTimeout(() => {
-      executeThemeTransition(() => setShow(false), { 
+      executeThemeTransition(() => setShow(false), {
         coordinates: { x: window.innerWidth, y: 0 },
         duration: 1000,
-        variant: "circle" 
+        variant: "circle"
       });
-      
+
       // Restore scrolling after fade out completes
       setTimeout(() => {
         document.body.style.overflow = '';
@@ -39,22 +39,14 @@ export default memo(function MacStartup() {
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#000000]"
         >
-          {/* Lightfall Background Layer */}
-          <div className="absolute inset-0 z-0 opacity-80 mix-blend-screen">
-            <Lightfall
-              colors={['#3b82f6', '#8b5cf6', '#0ea5e9']}
-              backgroundColor="#000000"
-              speed={1}
-              streakCount={8}
-              streakWidth={1}
-              streakLength={1}
-              glow={1}
-              density={1}
-              twinkle={1}
-              zoom={2}
-              backgroundGlow={1}
-              opacity={1}
-              mouseInteraction={true}
+          {/* Silk Background Layer */}
+          <div className="absolute inset-0 z-0 opacity-40 mix-blend-screen">
+            <Silk
+              speed={5}
+              scale={1}
+              color="#0ea5e9"
+              noiseIntensity={1.5}
+              rotation={0}
             />
           </div>
 
@@ -79,7 +71,7 @@ export default memo(function MacStartup() {
           <div className="flex flex-col items-center gap-4 relative">
             {/* Glowing Fluid Text Wrapper */}
             <div className="relative flex items-center justify-center glow-text-container">
-              
+
               {/* Layer 1: Deep wide blurry aura */}
               <motion.div
                 className="absolute text-2xl sm:text-4xl md:text-5xl font-sans font-black tracking-tighter text-transparent select-none whitespace-nowrap text-center"
