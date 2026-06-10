@@ -104,7 +104,7 @@ function MainContent({ mainRef }: { mainRef: React.RefObject<HTMLElement | null>
         />
 
         {/* Ambient Corner Glows - Hidden in light mode for clean look */}
-        {theme === 'dark' && (
+        {!isMobile && theme === 'dark' && (
           <>
             <div className="absolute top-0 right-0 w-[50vw] h-[50vw] bg-[#0ea5e9]/5 rounded-full blur-[120px]" />
             <div className="absolute bottom-0 left-0 w-[50vw] h-[50vw] bg-sky-500/3 rounded-full blur-[120px]" />
@@ -192,6 +192,20 @@ function App() {
     };
   }, [isMobile]);
 
+  const appContent = (
+    <ThemeProvider>
+      <MouseProvider>
+        <HomeDockChromeProvider>
+          <MainContent mainRef={mainRef} />
+        </HomeDockChromeProvider>
+      </MouseProvider>
+    </ThemeProvider>
+  );
+
+  if (isMobile) {
+    return appContent;
+  }
+
   return (
     <ReactLenis
       root
@@ -204,14 +218,7 @@ function App() {
         touchMultiplier: 2
       }}
     >
-
-      <ThemeProvider>
-        <MouseProvider>
-          <HomeDockChromeProvider>
-            <MainContent mainRef={mainRef} />
-          </HomeDockChromeProvider>
-        </MouseProvider>
-      </ThemeProvider>
+      {appContent}
     </ReactLenis>
   );
 }

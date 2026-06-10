@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText as GSAPSplitText } from 'gsap/SplitText';
 import { useGSAP } from '@gsap/react';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 gsap.registerPlugin(ScrollTrigger, GSAPSplitText, useGSAP);
 
@@ -26,6 +27,7 @@ const SplitText = ({
   const ref = useRef<any>(null);
   const animationCompletedRef = useRef(false);
   const onCompleteRef = useRef(onLetterAnimationComplete);
+  const isMobile = useIsMobile();
   // Keep callback ref updated
   useEffect(() => {
     onCompleteRef.current = onLetterAnimationComplete;
@@ -38,6 +40,30 @@ const SplitText = ({
       if (animationCompletedRef.current) return;
       const el = ref.current;
 
+      const startPct = (1 - threshold) * 100;
+      const marginMatch = /^(-?\d+(?:\.\d+)?)(px|em|rem|%)?$/.exec(rootMargin);
+      const marginValue = marginMatch ? parseFloat(marginMatch[1]) : 0;
+      const marginUnit = marginMatch ? marginMatch[2] || 'px' : 'px';
+      const sign = marginValue === 0 ? '' : marginValue < 0 ? `-=${Math.abs(marginValue)}${marginUnit}` : `+=${marginValue}${marginUnit}`;
+      const start = `top ${startPct}%${sign}`;
+
+      // Bypassing massive DOM splitting on mobile
+      if (isMobile) {
+        gsap.fromTo(el, { ...from }, {
+          ...to,
+          duration,
+          ease,
+          ...(useScrollTrigger ? {
+            scrollTrigger: { trigger: el, start, once: true }
+          } : {}),
+          onComplete: () => {
+            animationCompletedRef.current = true;
+            onCompleteRef.current?.();
+          }
+        });
+        return;
+      }
+
       if (el._rbsplitInstance) {
         try {
           el._rbsplitInstance.revert();
@@ -46,18 +72,6 @@ const SplitText = ({
         }
         el._rbsplitInstance = null;
       }
-
-      const startPct = (1 - threshold) * 100;
-      const marginMatch = /^(-?\d+(?:\.\d+)?)(px|em|rem|%)?$/.exec(rootMargin);
-      const marginValue = marginMatch ? parseFloat(marginMatch[1]) : 0;
-      const marginUnit = marginMatch ? marginMatch[2] || 'px' : 'px';
-      const sign =
-        marginValue === 0
-          ? ''
-          : marginValue < 0
-            ? `-=${Math.abs(marginValue)}${marginUnit}`
-            : `+=${marginValue}${marginUnit}`;
-      const start = `top ${startPct}%${sign}`;
 
       let targets: any;
       const assignTargets = (self: any) => {
@@ -120,6 +134,7 @@ const SplitText = ({
     },
     {
       dependencies: [
+        isMobile,
         text,
         delay,
         duration,

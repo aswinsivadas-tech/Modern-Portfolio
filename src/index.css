@@ -190,3 +190,16 @@ html[data-magicui-theme-vt="active"] *::before,
 html[data-magicui-theme-vt="active"] *::after {
   transition: none !important;
 }
+
+/* NUCLEAR FIX FOR IOS SAFARI SCROLL CRASHES */
+@media (max-width: 768px) {
+  * {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  
+  [class*="blur-"] {
+    filter: none !important;
+    -webkit-filter: none !important;
+  }
+}

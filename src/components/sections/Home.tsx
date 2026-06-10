@@ -6,9 +6,11 @@ import { Spotlight } from '@/components/ui/Spotlight';
 import { LiquidMetalButton } from '@/components/ui/liquid-metal-button';
 import { KillianBackground } from '@/components/ui/KillianBackground';
 import { useTheme } from '@/context/ThemeContext';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 export default memo(function Home() {
   const { theme } = useTheme();
+  const isMobile = useIsMobile();
   const containerRef = useRef<HTMLDivElement>(null);
 
 
@@ -27,13 +29,14 @@ export default memo(function Home() {
 
 
   useEffect(() => {
+    if (isMobile) return;
     const handleMouseMove = (e: MouseEvent) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
     };
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [mouseX, mouseY]);
+  }, [mouseX, mouseY, isMobile]);
 
 
   return (

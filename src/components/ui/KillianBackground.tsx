@@ -2,10 +2,12 @@ import React, { useEffect, useState, memo } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 import { useTheme } from '@/context/ThemeContext';
 import { useMouse } from '@/context/MouseContext';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 export const KillianBackground: React.FC = memo(() => {
   const { theme } = useTheme();
   const { positionRef } = useMouse();
+  const isMobile = useIsMobile();
   const [, setDimensions] = useState({ width: 0, height: 0 });
 
   const mouseX = useMotionValue(0);
@@ -16,6 +18,8 @@ export const KillianBackground: React.FC = memo(() => {
   const smoothY = useSpring(mouseY, springConfig);
 
   useEffect(() => {
+    if (isMobile) return;
+    
     let rafId: number;
     let lastX = 0;
     let lastY = 0;
@@ -35,7 +39,7 @@ export const KillianBackground: React.FC = memo(() => {
     };
     rafId = requestAnimationFrame(update);
     return () => cancelAnimationFrame(rafId);
-  }, [positionRef, mouseX, mouseY]);
+  }, [positionRef, mouseX, mouseY, isMobile]);
 
   useEffect(() => {
     const handleResize = () => {
