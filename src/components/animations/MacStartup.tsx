@@ -2,13 +2,17 @@ import { useState, useEffect, memo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { executeThemeTransition } from '@/lib/theme-transition';
 import Silk from '@/components/ui/Silk';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 export default memo(function MacStartup() {
   const [show, setShow] = useState(true);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     // Lock scrolling while the startup animation is playing
     document.body.style.overflow = 'hidden';
+    // On mobile, reduce the startup duration to 2 seconds instead of 4
+    const startupDuration = isMobile ? 2000 : 4000;
 
     const timer = setTimeout(() => {
       executeThemeTransition(() => setShow(false), {
@@ -21,7 +25,7 @@ export default memo(function MacStartup() {
       setTimeout(() => {
         document.body.style.overflow = '';
       }, 1000);
-    }, 4000); // 4 seconds total to enjoy the liquid effect
+    }, startupDuration);
 
     return () => {
       clearTimeout(timer);
@@ -50,23 +54,25 @@ export default memo(function MacStartup() {
             />
           </div>
 
-          {/* Hidden SVG Filter for Fluid Distortion */}
-          <svg className="hidden">
-            <defs>
-              <filter id="fluid-glow" x="-50%" y="-50%" width="200%" height="200%">
-                {/* Organic slow moving noise */}
-                <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" result="noise">
-                  <animate attributeName="baseFrequency" values="0.015;0.02;0.015" dur="8s" repeatCount="indefinite" />
-                </feTurbulence>
-                <feDisplacementMap in="SourceGraphic" in2="noise" scale="40" xChannelSelector="R" yChannelSelector="G" result="displaced" />
-                <feGaussianBlur in="displaced" stdDeviation="6" result="blurred" />
-                <feMerge>
-                  <feMergeNode in="blurred" />
-                  <feMergeNode in="SourceGraphic" />
-                </feMerge>
-              </filter>
-            </defs>
-          </svg>
+          {/* Hidden SVG Filter for Fluid Distortion - DISABLED ON MOBILE */}
+          {!isMobile && (
+            <svg className="hidden">
+              <defs>
+                <filter id="fluid-glow" x="-50%" y="-50%" width="200%" height="200%">
+                  {/* Organic slow moving noise */}
+                  <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" result="noise">
+                    <animate attributeName="baseFrequency" values="0.015;0.02;0.015" dur="8s" repeatCount="indefinite" />
+                  </feTurbulence>
+                  <feDisplacementMap in="SourceGraphic" in2="noise" scale="40" xChannelSelector="R" yChannelSelector="G" result="displaced" />
+                  <feGaussianBlur in="displaced" stdDeviation="6" result="blurred" />
+                  <feMerge>
+                    <feMergeNode in="blurred" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+            </svg>
+          )}
 
           <div className="flex flex-col items-center gap-4 relative">
             {/* Glowing Fluid Text Wrapper */}
@@ -103,7 +109,7 @@ export default memo(function MacStartup() {
                   backgroundSize: '300% 100%',
                   WebkitBackgroundClip: 'text',
                   backgroundClip: 'text',
-                  filter: 'url(#fluid-glow)',
+                  filter: isMobile ? 'none' : 'url(#fluid-glow)',
                   opacity: 1,
                 }}
                 animate={{
@@ -147,7 +153,7 @@ export default memo(function MacStartup() {
                 className="h-full bg-gradient-to-r from-blue-600 via-purple-500 to-cyan-400"
                 initial={{ width: '0%' }}
                 animate={{ width: '100%' }}
-                transition={{ duration: 3.5, ease: "easeInOut", delay: 0.2 }}
+                transition={{ duration: isMobile ? 1.5 : 3.5, ease: "easeInOut", delay: 0.2 }}
                 style={{
                   boxShadow: '0 0 10px rgba(56,189,248,0.8)'
                 }}

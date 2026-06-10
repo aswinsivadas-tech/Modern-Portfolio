@@ -33,10 +33,12 @@ import { MouseProvider } from '@/context/MouseContext';
 import { CustomCursor } from '@/components/ui/CustomCursor';
 // import { Globe } from '@/components/ui/globe';
 import ScrollAnimatedObject from '@/components/animations/ScrollAnimatedObject';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 
 function MainContent({ mainRef }: { mainRef: React.RefObject<HTMLElement | null> }) {
   const { theme } = useTheme();
+  const isMobile = useIsMobile();
 
   return (
 
@@ -61,21 +63,21 @@ function MainContent({ mainRef }: { mainRef: React.RefObject<HTMLElement | null>
       <GSAPScrollSync />
 
       {/* 3D Global Object that follows scroll */}
-      <ScrollAnimatedObject />
+      {!isMobile && <ScrollAnimatedObject />}
 
       {/* Global Cinematic Background System */}
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
         {/* Dynamic Global Particles - Deepest Layer */}
         <Particles
           className="absolute inset-0 opacity-50"
-          quantity={typeof window !== 'undefined' && window.innerWidth < 768 ? 40 : 100}
+          quantity={isMobile ? 20 : (typeof window !== 'undefined' && window.innerWidth < 768 ? 40 : 100)}
           ease={80}
           color={theme === 'dark' ? '#ffffff' : '#000000'}
           staticity={30}
           refresh
         />
         {/* Global Interactive LiquidEther - ONLY IN DARK MODE */}
-        {theme === 'dark' && (
+        {!isMobile && theme === 'dark' && (
           <div className="absolute inset-0 w-full h-full opacity-70 mix-blend-screen">
             <LiquidEther
               colors={['#0ea5e9', '#8b1e00', '#d97706']}
@@ -88,10 +90,10 @@ function MainContent({ mainRef }: { mainRef: React.RefObject<HTMLElement | null>
         )}
 
         {/* Global Interactive Water Ripple */}
-        <WaterRippleBackground />
+        {!isMobile && <WaterRippleBackground />}
 
         {/* Global Ambient Comets */}
-        <CometBackground />
+        {!isMobile && <CometBackground />}
 
 
         {/* Main Dramatic Spotlight - Softened in light mode */}
