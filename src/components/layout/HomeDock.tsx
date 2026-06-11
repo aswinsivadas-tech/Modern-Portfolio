@@ -2,6 +2,7 @@ import React from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useLenis } from 'lenis/react';
 import { useHomeDockChrome } from '@/context/HomeDockChromeContext';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 // Asset Imports
 const homeIcon = '/assets/home-icon.png';
@@ -58,12 +59,13 @@ function DockItem({
   const itemIsTerminal = label === 'Terminal';
   const itemIsVSCode = label === 'VS Code';
   const [hovered, setHovered] = React.useState(false);
+  const isMobile = useIsMobile();
 
   return (
-    <div className="relative flex w-[48px] sm:w-[58px] shrink-0 flex-col items-center justify-end gap-0.5 pb-px">
+    <div className="relative flex w-[44px] sm:w-[58px] shrink-0 flex-col items-center justify-end gap-0.5 pb-px">
       <div className="relative flex flex-col items-center">
         <AnimatePresence mode="popLayout">
-          {hovered && (
+          {hovered && !isMobile && (
             <motion.div
               key="tooltip"
               initial={{ opacity: 0, y: 6, scale: 0.94 }}
@@ -84,14 +86,14 @@ function DockItem({
         </AnimatePresence>
 
         <motion.div
-          animate={{ scale: hovered ? DOCK_HOVER_SCALE : 1 }}
+          animate={{ scale: hovered && !isMobile ? DOCK_HOVER_SCALE : 1 }}
           transition={{ type: 'spring', stiffness: 380, damping: 28 }}
           onHoverStart={() => setHovered(true)}
           onHoverEnd={() => setHovered(false)}
           style={{ transformOrigin: '50% 100%' }}
           onClick={onClick}
           aria-label={label}
-          className={`relative flex h-12 w-12 sm:h-14 sm:w-14 shrink-0 cursor-pointer items-center justify-center will-change-transform group ${hovered ? 'z-20' : 'z-10'
+          className={`relative flex h-[42px] w-[42px] sm:h-14 sm:w-14 shrink-0 cursor-pointer items-center justify-center will-change-transform group ${hovered ? 'z-20' : 'z-10'
             }`}
         >
           <div className="flex h-full w-full items-center justify-center p-1 transition-transform duration-150 group-active:scale-95">
@@ -144,22 +146,34 @@ export default function HomeDock() {
 
     const id = item.id;
     if (id) {
-      lenis?.scrollTo(`#${id}`, { offset: -20, duration: 1.5 });
+      if (lenis) {
+        lenis.scrollTo(`#${id}`, { offset: -20, duration: 1.5 });
+      } else {
+        const element = document.querySelector(`#${id}`);
+        if (element) {
+          const offsetTop = element.getBoundingClientRect().top + window.scrollY - 80;
+          window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+        }
+      }
     } else if (item.url === '/') {
-      lenis?.scrollTo(0, { duration: 1.5 });
+      if (lenis) {
+        lenis.scrollTo(0, { duration: 1.5 });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     }
   };
 
   return (
     <div
-      className={`fixed bottom-0 sm:bottom-4 left-1/2 z-50 w-max max-w-[100vw] -translate-x-1/2 overflow-visible pointer-events-none transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] scale-100 origin-bottom ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-32 opacity-0'
+      className={`fixed bottom-0 sm:bottom-4 left-1/2 z-50 w-full sm:w-max max-w-[100vw] -translate-x-1/2 overflow-visible pointer-events-none transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] scale-100 origin-bottom ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-32 opacity-0'
         }`}
     >
       <motion.div
         initial={{ y: 80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 2.8, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-        className="pointer-events-auto relative box-border inline-flex h-[64px] sm:h-[76px] max-h-[76px] shrink-0 items-end gap-px overflow-visible rounded-t-[20px] rounded-b-none sm:rounded-b-[24px] border-x border-t sm:border-b border-white/10 [body.light_&]:border-black/5 bg-[#0c0c0e]/30 [body.light_&]:bg-white/40 px-1.5 sm:px-2.5 py-1 pb-3 sm:pb-1 shadow-[0_40px_100px_-15px_rgba(0,0,0,1)] [body.light_&]:shadow-[0_20px_50px_-10px_rgba(0,0,0,0.15)] backdrop-blur-[20px] transition-colors"
+        className="pointer-events-auto relative box-border flex h-[64px] sm:h-[76px] max-h-[76px] w-full sm:w-auto shrink-0 items-end gap-px overflow-x-auto overflow-y-hidden sm:overflow-visible scrollbar-hide rounded-t-[20px] rounded-b-none sm:rounded-b-[24px] border-x border-t sm:border-b border-white/10 [body.light_&]:border-black/5 bg-[#0c0c0e]/30 [body.light_&]:bg-white/40 px-1.5 sm:px-2.5 py-1 pb-3 sm:pb-1 shadow-[0_40px_100px_-15px_rgba(0,0,0,1)] [body.light_&]:shadow-[0_20px_50px_-10px_rgba(0,0,0,0.15)] backdrop-blur-[20px] transition-colors"
         style={{
           boxShadow: 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.05) inset, 0 30px 60px -12px rgba(0,0,0,0.5)',
         }}

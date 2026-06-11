@@ -20,6 +20,7 @@
 
   --animate-spotlight: spotlight 2s ease 0.75s 1 forwards;
   --animate-spotlight-right: spotlight-right 2s ease 0.75s 1 forwards;
+  --animate-gradient-bg: gradient-bg 8s ease infinite;
 }
 
 @keyframes spotlight {
@@ -44,6 +45,12 @@
     opacity: 1;
     transform: translate(50%, -40%) scale(1) scaleX(-1);
   }
+}
+
+@keyframes gradient-bg {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 @layer base {

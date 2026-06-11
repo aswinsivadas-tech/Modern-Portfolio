@@ -69,9 +69,15 @@ export default function Navbar() {
         lenis.scrollTo(href, { offset: -50, duration: 1.5 });
       }
     } else {
-      const element = document.querySelector(href);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+      // Fallback for mobile where Lenis is disabled
+      if (href === '#home') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        const element = document.querySelector(href);
+        if (element) {
+          const offsetTop = element.getBoundingClientRect().top + window.scrollY - 80;
+          window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+        }
       }
     }
     setActiveSection(name);
@@ -82,7 +88,7 @@ export default function Navbar() {
     <>
       <motion.header
         initial={{ y: -100, opacity: 0 }}
-        animate={{ y: (isMobile ? !isScrolled : isScrolled) ? 0 : -100, opacity: (isMobile ? !isScrolled : isScrolled) ? 1 : 0 }}
+        animate={{ y: isMobile ? 0 : (isScrolled ? 0 : -100), opacity: isMobile ? 1 : (isScrolled ? 1 : 0) }}
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         className="fixed top-2 md:top-2 left-1/2 -translate-x-1/2 z-[100] transition-all duration-300 w-[95%] max-w-6xl pointer-events-auto"
       >

@@ -97,6 +97,10 @@ function MainContent({ mainRef }: { mainRef: React.RefObject<HTMLElement | null>
         {/* Global Ambient Comets */}
         {!isMobile && <CometBackground />}
 
+        {/* Simple low-impact animated background for Mobile Dark Mode */}
+        {isMobile && theme === 'dark' && (
+          <div className="absolute inset-0 z-0 opacity-40 bg-[linear-gradient(45deg,#020617,#0f172a,#1e1b4b,#0f172a)] bg-[length:400%_400%] animate-gradient-bg pointer-events-none" />
+        )}
 
         {/* Main Dramatic Spotlight - Softened in light mode */}
         <div
