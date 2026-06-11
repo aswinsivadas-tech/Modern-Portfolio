@@ -77,10 +77,10 @@ export default memo(function Home() {
         >
           <motion.div
             className="relative w-full px-[2vw] sm:px-[5vw] md:px-[10vw]"
-            initial={{ filter: 'blur(20px)', opacity: 0, y: 40, scale: 0.95 }}
-            animate={{ filter: 'blur(0px)', opacity: 1, y: 0, scale: 1 }}
+            initial={{ opacity: 0, y: 40, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 1.5, delay: 2.8, ease: [0.22, 1, 0.36, 1] }}
-            style={{ willChange: 'filter, opacity' }}
+            style={{ willChange: 'opacity, transform' }}
           >
             <h1
               className={`flex flex-col sm:flex-row justify-center items-center gap-0 sm:gap-6 sm:justify-between w-full text-[20vw] sm:text-[10vw] md:text-[12vw] font-big-shoulders font-black leading-none uppercase whitespace-nowrap select-none scale-y-[1.0] scale-x-[0.9] tracking-[-0.05em] origin-center ${theme === 'dark' ? 'text-white/40' : 'text-black/[0.3]'
@@ -91,7 +91,7 @@ export default memo(function Home() {
             </h1>
 
             {/* Glassy Black Spotlight Glow - ONLY IN LIGHT MODE */}
-            {theme === 'light' && (
+            {theme === 'light' && !isMobile && (
               <motion.div
                 className="absolute inset-0 pointer-events-none z-[2] mix-blend-multiply opacity-10"
                 style={{
@@ -104,7 +104,11 @@ export default memo(function Home() {
             <motion.h1
               className={`absolute inset-0 flex flex-col sm:flex-row justify-center items-center gap-0 sm:gap-6 sm:justify-between w-full px-[2vw] sm:px-[5vw] md:px-[10vw] text-[20vw] sm:text-[10vw] md:text-[12vw] font-big-shoulders font-black leading-none uppercase whitespace-nowrap select-none scale-y-[1.0] scale-x-[0.9] tracking-[-0.05em] origin-center ${theme === 'dark' ? 'text-white' : 'text-black'
                 }`}
-              style={{
+              style={isMobile ? {
+                textShadow: theme === 'light'
+                  ? '0 15px 45px rgba(0,0,0,0.2), 0 5px 15px rgba(0,0,0,0.1)'
+                  : '0 20px 50px rgba(0,0,0,0.5), 0 0 20px rgba(255,255,255,0.05)'
+              } : {
                 WebkitMaskImage: maskImage,
                 maskImage: maskImage,
                 textShadow: theme === 'light'
@@ -123,10 +127,10 @@ export default memo(function Home() {
       <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none perspective-[1000px] px-4">
         <motion.div
           className="relative w-full max-w-[350px] sm:max-w-[400px] md:max-w-[480px] lg:max-w-[620px] pointer-events-auto will-change-transform"
-          initial={{ opacity: 0, y: 40, filter: 'blur(10px)' }}
-          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.5, delay: 2.9, ease: [0.22, 1, 0.36, 1] }}
-          style={{ willChange: 'opacity, transform, filter' }}
+          style={{ willChange: 'opacity, transform' }}
         >
           <div className="relative w-full aspect-square md:aspect-[4/5] flex items-center justify-center">
             <motion.img
