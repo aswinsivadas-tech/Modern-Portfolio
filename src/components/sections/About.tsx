@@ -8,7 +8,7 @@ import { DiaTextReveal } from '@/components/ui/dia-text-reveal';
 export default memo(function About() {
 
   return (
-    <section id="about" className="relative w-full h-screen bg-transparent overflow-hidden flex items-center z-20">
+    <section id="about" className="relative w-full min-h-[100svh] py-24 sm:py-0 bg-transparent overflow-hidden flex items-center z-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-12 w-full relative z-10">
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
