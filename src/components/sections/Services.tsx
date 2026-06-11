@@ -1,9 +1,7 @@
 import { memo } from 'react';
-import { motion } from 'framer-motion';
 import { Layers, Network, Database } from 'lucide-react';
 import ScrollHeading from '@/components/ui/ScrollHeading';
 import { DiaTextReveal } from '@/components/ui/dia-text-reveal';
-import ScrollStack, { ScrollStackItem } from '@/components/ui/ScrollStack';
 
 const services = [
   {
@@ -48,46 +46,41 @@ export default memo(function Services() {
           </h2>
         </ScrollHeading>
 
-        <ScrollStack useWindowScroll={true} itemDistance={30} itemStackDistance={30} stackPosition="25%" scaleEndPosition="10%" blurAmount={4} fadeAmount={0.5}>
-          {services.map((service, index) => {
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          {services.map((service) => {
             const Icon = service.icon;
             return (
-              <ScrollStackItem key={service.title}>
-                <motion.div
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.7, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
-                  className="relative group rounded-3xl p-6 sm:p-8 bg-white/[0.03] backdrop-blur-3xl backdrop-saturate-150 border border-white/5 border-t-white/10 border-l-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)] overflow-hidden hover:shadow-[0_8px_32px_rgba(14,165,233,0.15)] hover:border-white/20 hover:bg-white/[0.05] transition-colors transition-shadow duration-500 flex flex-col h-full min-h-[300px]"
-                >
-                  {/* Background Gradient */}
-                  <div className={`absolute inset-0 bg-gradient-to-b ${service.color} opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none`} />
+              <div
+                key={service.title}
+                className="relative group rounded-3xl p-6 sm:p-8 bg-white/[0.03] backdrop-blur-3xl backdrop-saturate-150 border border-white/5 border-t-white/10 border-l-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.4)] overflow-hidden hover:shadow-[0_8px_32px_rgba(14,165,233,0.15)] hover:border-white/20 hover:bg-white/[0.05] transition-colors transition-shadow duration-500 flex flex-col h-full min-h-[300px]"
+              >
+                {/* Background Gradient */}
+                <div className={`absolute inset-0 bg-gradient-to-b ${service.color} opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none`} />
 
-                  {/* Glass reflection overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.05] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                {/* Glass reflection overlay */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.05] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
-                  {/* Subtle border glow */}
-                  <div className="absolute inset-0 rounded-3xl border border-white/0 group-hover:border-white/10 transition-colors duration-500 pointer-events-none" />
+                {/* Subtle border glow */}
+                <div className="absolute inset-0 rounded-3xl border border-white/0 group-hover:border-white/10 transition-colors duration-500 pointer-events-none" />
 
-                  <div className="relative z-10 flex flex-col h-full">
-                    <div className={`w-12 h-12 rounded-2xl flex items-center justify-center border mb-6 group-hover:scale-110 transition-transform duration-500 shadow-lg ${service.iconBg}`}>
-                      <Icon size={24} className={service.iconColor} />
-                    </div>
-
-                    <div className="flex-1">
-                      <h3 className="text-xl sm:text-2xl font-bold text-text-primary mb-4 leading-snug">
-                        {service.title}
-                      </h3>
-                      <p className="text-base sm:text-lg text-text-primary/80 leading-relaxed font-medium">
-                        {service.description}
-                      </p>
-                    </div>
+                <div className="relative z-10 flex flex-col h-full">
+                  <div className={`w-12 h-12 rounded-2xl flex items-center justify-center border mb-6 group-hover:scale-110 transition-transform duration-500 shadow-lg ${service.iconBg}`}>
+                    <Icon size={24} className={service.iconColor} />
                   </div>
-                </motion.div>
-              </ScrollStackItem>
+
+                  <div className="flex-1">
+                    <h3 className="text-xl sm:text-2xl font-bold text-text-primary mb-4 leading-snug">
+                      {service.title}
+                    </h3>
+                    <p className="text-base sm:text-lg text-text-primary/80 leading-relaxed font-medium">
+                      {service.description}
+                    </p>
+                  </div>
+                </div>
+              </div>
             );
           })}
-        </ScrollStack>
+        </div>
       </div>
     </section>
   );
