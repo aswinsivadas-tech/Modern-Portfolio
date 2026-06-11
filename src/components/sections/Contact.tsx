@@ -185,7 +185,8 @@ export default memo(function Contact() {
                     icon={<Phone size={18} />}
                     label="Phone"
                     value="+919539820532"
-                    type="text"
+                    href={isMobile ? "tel:+919539820532" : undefined}
+                    type={isMobile ? "link" : "text"}
                     color="#3b82f6"
                   />
                 </div>

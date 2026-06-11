@@ -166,20 +166,20 @@ export default function HomeDock() {
 
   return (
     <div
-      className={`fixed bottom-0 sm:bottom-4 left-1/2 z-50 w-full sm:w-max max-w-[100vw] -translate-x-1/2 overflow-visible pointer-events-none transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] scale-100 origin-bottom ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-32 opacity-0'
+      className={`fixed bottom-4 sm:bottom-4 left-1/2 z-50 w-max max-w-[calc(100vw-24px)] sm:max-w-[100vw] -translate-x-1/2 overflow-visible pointer-events-none transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] scale-100 origin-bottom ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-32 opacity-0'
         }`}
     >
       <motion.div
         initial={{ y: 80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 2.8, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-        className="pointer-events-auto relative box-border flex h-[64px] sm:h-[76px] max-h-[76px] w-full sm:w-auto shrink-0 items-end gap-px overflow-x-auto overflow-y-hidden sm:overflow-visible scrollbar-hide rounded-t-[20px] rounded-b-none sm:rounded-b-[24px] border-x border-t sm:border-b border-white/10 [body.light_&]:border-black/5 bg-[#0c0c0e]/30 [body.light_&]:bg-white/40 px-1.5 sm:px-2.5 py-1 pb-3 sm:pb-1 shadow-[0_40px_100px_-15px_rgba(0,0,0,1)] [body.light_&]:shadow-[0_20px_50px_-10px_rgba(0,0,0,0.15)] backdrop-blur-[20px] transition-colors"
+        className="pointer-events-auto relative box-border flex h-[64px] sm:h-[76px] max-h-[76px] w-full sm:w-auto shrink-0 items-end gap-px overflow-x-auto overflow-y-hidden sm:overflow-visible scrollbar-hide rounded-[24px] border border-white/10 [body.light_&]:border-black/5 bg-[#0c0c0e]/30 [body.light_&]:bg-white/40 px-1.5 sm:px-2.5 py-1 pb-1 shadow-[0_40px_100px_-15px_rgba(0,0,0,1)] [body.light_&]:shadow-[0_20px_50px_-10px_rgba(0,0,0,0.15)] backdrop-blur-[20px] transition-colors"
         style={{
           boxShadow: 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.05) inset, 0 30px 60px -12px rgba(0,0,0,0.5)',
         }}
 
       >
-        <div className="pointer-events-none absolute inset-0 rounded-t-[20px] rounded-b-none sm:rounded-b-[24px] border-t border-white/10 bg-gradient-to-tr from-transparent via-white/[0.03] to-transparent" />
+        <div className="pointer-events-none absolute inset-0 rounded-[24px] border border-white/10 bg-gradient-to-tr from-transparent via-white/[0.03] to-transparent" />
 
         <div className="relative z-[1] flex shrink-0 items-end gap-px">
           {mainDockItems.map((item, idx) => (
