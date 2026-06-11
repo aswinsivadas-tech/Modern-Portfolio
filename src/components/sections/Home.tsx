@@ -132,13 +132,13 @@ export default memo(function Home() {
             <motion.img
               src={heroImg}
               alt="Aswin Sivadas"
-              className="w-[180%] h-[180%] sm:w-[150%] sm:h-[150%] md:w-[170%] md:h-[170%] lg:w-[190%] lg:h-[190%] object-contain contrast-[1.1] brightness-[1.1] select-none pointer-events-none drop-shadow-[0_20px_50px_rgba(14,165,233,0.4)] relative z-20"
+              className="w-[180%] h-[180%] sm:w-[150%] sm:h-[150%] md:w-[170%] md:h-[170%] lg:w-[190%] lg:h-[190%] object-contain contrast-[1.1] brightness-[1.1] select-none pointer-events-none md:drop-shadow-[0_20px_50px_rgba(14,165,233,0.4)] relative z-20"
               style={{ objectPosition: 'center' }}
-              animate={{
+              animate={isMobile ? {} : {
                 y: [0, -15, 0],
                 rotateZ: [0, 1, 0, -1, 0]
               }}
-              transition={{
+              transition={isMobile ? {} : {
                 duration: 6,
                 repeat: Infinity,
                 ease: "easeInOut"

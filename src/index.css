@@ -205,7 +205,7 @@ html[data-magicui-theme-vt="active"] *::after {
     -webkit-backdrop-filter: none !important;
   }
   
-  [class*="blur-"] {
+  [class*="blur-"], [class*="drop-shadow-"] {
     filter: none !important;
     -webkit-filter: none !important;
   }

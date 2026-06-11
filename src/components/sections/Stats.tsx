@@ -36,26 +36,23 @@ function RealisticAppleCard({ children, className = "" }: { children: React.Reac
   const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [10, -10]), { damping: 20, stiffness: 100 });
   const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-10, 10]), { damping: 20, stiffness: 100 });
   const scale = useSpring(1, { damping: 15, stiffness: 150 });
+  
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    if (!ref.current) return;
+    if (!ref.current || isMobile) return;
     const rect = ref.current.getBoundingClientRect();
     mouseX.set((e.clientX - rect.left) / rect.width - 0.5);
     mouseY.set((e.clientY - rect.top) / rect.height - 0.5);
   };
 
-  const handleMouseEnter = () => scale.set(1.03);
+  const handleMouseEnter = () => { if (!isMobile) scale.set(1.03); };
   const handleMouseLeave = () => {
+    if (isMobile) return;
     mouseX.set(0);
     mouseY.set(0);
     scale.set(1);
   };
-
-  // Natural Realistic Lighting Template
-  // const spotlightX = useTransform(mouseX, [-0.5, 0.5], ["0%", "100%"]);
-  // const spotlightY = useTransform(mouseY, [-0.5, 0.5], ["0%", "100%"]);
-
-
 
   return (
     <motion.div
@@ -63,7 +60,7 @@ function RealisticAppleCard({ children, className = "" }: { children: React.Reac
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      style={{
+      style={isMobile ? {} : {
         rotateX,
         rotateY,
         scale,
@@ -74,13 +71,15 @@ function RealisticAppleCard({ children, className = "" }: { children: React.Reac
       className={`relative group ${className}`}
     >
       {/* Dynamic Halo - More Subtle & Broad */}
-      <motion.div
-        className="absolute -inset-10 bg-gradient-to-br from-blue-500/5 via-amber-500/10 to-emerald-500/5 rounded-[4rem] blur-[80px] opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none"
-        style={{
-          x: useTransform(mouseX, [-0.5, 0.5], [-30, 30]),
-          y: useTransform(mouseY, [-0.5, 0.5], [-30, 30]),
-        }}
-      />
+      {!isMobile && (
+        <motion.div
+          className="absolute -inset-10 bg-gradient-to-br from-blue-500/5 via-amber-500/10 to-emerald-500/5 rounded-[4rem] blur-[80px] opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none"
+          style={{
+            x: useTransform(mouseX, [-0.5, 0.5], [-30, 30]),
+            y: useTransform(mouseY, [-0.5, 0.5], [-30, 30]),
+          }}
+        />
+      )}
 
       {/* Main Glass Shell */}
       <motion.div
@@ -90,7 +89,7 @@ function RealisticAppleCard({ children, className = "" }: { children: React.Reac
         <div className="absolute inset-[1px] rounded-[2.5rem] border border-border-main opacity-50 pointer-events-none z-10" />
 
         {/* Content with Deep Parallax */}
-        <div style={{ transform: "translateZ(70px)", transformStyle: "preserve-3d" }} className="relative z-20 h-full p-3 sm:p-4">
+        <div style={isMobile ? {} : { transform: "translateZ(70px)", transformStyle: "preserve-3d" }} className="relative z-20 h-full p-3 sm:p-4">
           {children}
         </div>
       </motion.div>
