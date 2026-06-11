@@ -1,5 +1,6 @@
 import { useLayoutEffect, useRef, useCallback } from 'react';
 import Lenis from 'lenis';
+import { useLenis } from 'lenis/react';
 import './ScrollStack.css';
 
 export const ScrollStackItem = ({ children, itemClassName = '' }: any) => (
@@ -188,14 +189,21 @@ const ScrollStack = ({
     getElementOffset
   ]);
 
+  useLenis(() => {
+    if (useWindowScroll) {
+      updateCardTransforms();
+    }
+  });
+
   const handleScroll = useCallback(() => {
-    updateCardTransforms();
-  }, [updateCardTransforms]);
+    if (!useWindowScroll) {
+      updateCardTransforms();
+    }
+  }, [updateCardTransforms, useWindowScroll]);
 
   const setupLenis = useCallback(() => {
     if (useWindowScroll) {
-      window.addEventListener('scroll', handleScroll, { passive: true });
-      // We don't create Lenis on window here to prevent conflict with existing site scroll
+      // Lenis hook handles updates now, no native scroll listener needed
       return;
     } else {
       const scroller = scrollerRef.current;

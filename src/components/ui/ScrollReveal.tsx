@@ -81,7 +81,6 @@ export const ScrollReveal = memo(<T extends HTMLMotionTag = 'div'>({
           x,
           y,
           scale: 0.9,
-          filter: 'blur(10px)',
         };
       },
       visible: (i: number) => {
@@ -90,7 +89,6 @@ export const ScrollReveal = memo(<T extends HTMLMotionTag = 'div'>({
           x: 0,
           y: 0,
           scale: 1,
-          filter: 'blur(0px)',
           transition: {
             delay: i * staggerDelay,
             type: 'spring',

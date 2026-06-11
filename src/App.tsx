@@ -17,7 +17,6 @@ import { ReactLenis } from 'lenis/react';
 import LiquidEther from '@/components/ui/LiquidEther';
 import WaterRippleBackground from '@/components/ui/WaterRipple';
 import CometBackground from '@/components/ui/CometBackground';
-import GSAPScrollSync from '@/components/animations/GSAPScrollSync';
 import { useStackedPanels } from '@/hooks/useStackedPanels';
 import ScrollToTop from '@/components/ui/ScrollToTop';
 import Particles from '@/components/ui/Particles';
@@ -58,9 +57,6 @@ function MainContent({ mainRef }: { mainRef: React.RefObject<HTMLElement | null>
 
       {/* Smooth scroll-to-top button with progress ring */}
       <ScrollToTop />
-
-      {/* Lenis ↔ GSAP ScrollTrigger sync */}
-      {!isMobile && <GSAPScrollSync />}
 
       {/* 3D Global Object that follows scroll */}
       {!isMobile && <ScrollAnimatedObject />}

@@ -83,11 +83,11 @@ export default memo(function About() {
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
             className="relative"
           >
-            <div className="relative w-full aspect-[4/5] max-w-sm mx-auto md:ml-auto rounded-[2rem] overflow-hidden shadow-2xl border border-border-main/50 group bg-bg-secondary">
+            <div className="relative w-full sm:aspect-[4/5] max-w-sm mx-auto md:ml-auto rounded-[2rem] overflow-hidden shadow-2xl border border-border-main/50 group bg-bg-secondary flex items-center justify-center">
               <img
                 src="/assets/profilecard.jpeg"
                 alt="Aswin Sivadas"
-                className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out opacity-90"
+                className="w-full h-auto sm:h-full object-contain sm:object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out opacity-90"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-bg-primary/60 via-transparent to-transparent opacity-80" />
             </div>

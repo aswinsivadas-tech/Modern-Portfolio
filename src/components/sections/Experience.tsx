@@ -1,4 +1,4 @@
-import { useRef, memo } from 'react';
+import { useRef, memo, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Briefcase, Calendar, MapPin } from 'lucide-react';
 import ScrollHeading from '@/components/ui/ScrollHeading';
@@ -23,6 +23,8 @@ const experiences = [
 
 export default memo(function Experience() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [expandedId, setExpandedId] = useState<number | null>(null);
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start center', 'end center']
@@ -108,18 +110,30 @@ export default memo(function Experience() {
                     </div>
 
                     {exp.tags && (
-                      <div className="mt-6 flex flex-wrap gap-2 sm:gap-2.5">
-                        {exp.tags.map((tag) => {
-                          const isLongTag = ['api development', 'backend development', 'frontend development', 'full stack development', 'Training & Internship'].includes(tag);
-                          return (
-                            <span
-                              key={tag}
-                              className={`px-3 py-1 text-xs sm:text-[13px] font-medium text-text-primary/80 bg-white/[0.05] border border-white/10 rounded-full hover:bg-white/[0.1] hover:border-white/20 hover:text-text-primary transition-colors cursor-default ${isLongTag ? 'hidden sm:inline-flex' : 'inline-flex'}`}
+                      <div className="mt-6">
+                        <div className={`flex-wrap gap-2 sm:gap-2.5 ${expandedId === exp.id ? 'flex' : 'hidden sm:flex'}`}>
+                          {exp.tags.map((tag) => {
+                            const isLongTag = ['api development', 'backend development', 'frontend development', 'full stack development', 'Training & Internship'].includes(tag);
+                            return (
+                              <span
+                                key={tag}
+                                className={`px-3 py-1 text-xs sm:text-[13px] font-medium text-text-primary/80 bg-white/[0.05] border border-white/10 rounded-full hover:bg-white/[0.1] hover:border-white/20 hover:text-text-primary transition-colors cursor-default ${isLongTag ? 'hidden sm:inline-flex' : 'inline-flex'}`}
+                              >
+                                {tag}
+                              </span>
+                            );
+                          })}
+                        </div>
+                        {exp.tags.length > 0 && (
+                          <div className={`sm:hidden ${expandedId === exp.id ? 'mt-4' : ''}`}>
+                            <button
+                              onClick={() => setExpandedId(expandedId === exp.id ? null : exp.id)}
+                              className="text-[11px] font-bold px-4 py-1.5 rounded-full bg-[#0ea5e9]/10 text-[#0ea5e9] border border-[#0ea5e9]/20"
                             >
-                              {tag}
-                            </span>
-                          );
-                        })}
+                              {expandedId === exp.id ? "Hide Skills" : `Show Skills (${exp.tags.filter(t => !['api development', 'backend development', 'frontend development', 'full stack development', 'Training & Internship'].includes(t)).length})`}
+                            </button>
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>

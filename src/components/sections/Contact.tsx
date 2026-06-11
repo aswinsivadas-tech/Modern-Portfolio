@@ -5,6 +5,7 @@ import { SiGithub, SiLeetcode, SiWhatsapp, SiDevdotto } from 'react-icons/si';
 import { FaLinkedin } from 'react-icons/fa';
 import ScrollHeading from '@/components/ui/ScrollHeading';
 import { DiaTextReveal } from '@/components/ui/dia-text-reveal';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 const SOCIAL_LINKS = [
   { name: 'LinkedIn', icon: <FaLinkedin size={22} />, url: 'https://www.linkedin.com/in/aswinsivadas-tech/', handle: 'linkedin.com/in/aswinsivadas-tech', color: '#0077b5' },
@@ -105,7 +106,7 @@ function ContactLink({ icon, label, value, href, type, color = 'var(--accent-ora
         </div>
         <div className="transform-gpu translate-z-0 min-w-0 flex-1">
           <p className="text-[10px] font-black text-text-secondary uppercase tracking-[0.25em] mb-1 opacity-80 group-hover/item:opacity-100 transition-opacity subpixel-antialiased truncate">{label}</p>
-          <p className="text-sm sm:text-base font-bold text-text-primary tracking-tight group-hover/item:text-text-primary transition-colors subpixel-antialiased truncate">{value}</p>
+          <p className={`font-bold text-text-primary tracking-tight group-hover/item:text-text-primary transition-colors subpixel-antialiased ${value.includes('@') ? 'text-[11px] sm:text-base break-all sm:truncate' : 'text-sm sm:text-base truncate'}`}>{value}</p>
         </div>
       </div>
 
@@ -131,6 +132,8 @@ function ContactLink({ icon, label, value, href, type, color = 'var(--accent-ora
 }
 
 export default memo(function Contact() {
+  const isMobile = useIsMobile();
+  
   const copyEmail = () => {
     navigator.clipboard.writeText('aswinsivadas.tech@gmail.com');
   };
@@ -164,7 +167,8 @@ export default memo(function Contact() {
                   icon={<Mail size={18} />}
                   label="Email"
                   value="aswinsivadas.tech@gmail.com"
-                  type="copy"
+                  href={isMobile ? "mailto:aswinsivadas.tech@gmail.com" : undefined}
+                  type={isMobile ? "link" : "copy"}
                   color="#f97316"
                   onCopy={copyEmail}
                 />
