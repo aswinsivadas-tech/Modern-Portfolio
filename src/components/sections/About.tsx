@@ -26,9 +26,9 @@ export default memo(function About() {
             </span>
 
             <h2 className="text-4xl sm:text-5xl md:text-[3.5rem] font-light text-text-primary mb-8 leading-[1.1]">
-              I'm Aswin, a <br className="hidden sm:block" />
-              <span className="font-extrabold tracking-tighter whitespace-nowrap">
-                Full Stack <DiaTextReveal text="Developer" textColor="#0ea5e9" className="font-serif italic" duration={1.5} delay={0.3} />
+              I'm Aswin, a <br />
+              <span className="font-extrabold tracking-tighter sm:whitespace-nowrap">
+                Full Stack <DiaTextReveal text="Developer" textColor="#0ea5e9" className="font-serif italic inline-block" duration={1.5} delay={0.3} />
               </span>
             </h2>
 
@@ -83,13 +83,13 @@ export default memo(function About() {
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
             className="relative"
           >
-            <div className="relative w-full sm:aspect-[4/5] max-w-sm mx-auto md:ml-auto rounded-[2rem] overflow-hidden shadow-2xl border border-border-main/50 group bg-bg-secondary flex items-center justify-center">
+            <div className="relative w-full sm:aspect-[4/5] max-w-sm mx-auto md:ml-auto rounded-[1rem] sm:rounded-[2rem] overflow-hidden shadow-2xl border border-border-main/50 group bg-bg-secondary flex items-center justify-center">
               <img
                 src="/assets/profilecard.jpeg"
                 alt="Aswin Sivadas"
                 className="w-full h-auto sm:h-full object-contain sm:object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out opacity-90"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-bg-primary/60 via-transparent to-transparent opacity-80" />
+              <div className="hidden sm:block absolute inset-0 bg-gradient-to-t from-bg-primary/60 via-transparent to-transparent opacity-80" />
             </div>
 
             {/* Subtle backdrop glow */}

@@ -73,7 +73,7 @@ export default memo(function Home() {
             style={{ willChange: 'opacity, transform' }}
           >
             <h1
-              className={`flex flex-col sm:flex-row justify-center items-center gap-0 sm:gap-6 sm:justify-between w-full text-[20vw] sm:text-[10vw] md:text-[12vw] font-big-shoulders font-black leading-none uppercase whitespace-nowrap select-none scale-y-[1.0] scale-x-[0.9] tracking-[-0.05em] origin-center ${theme === 'dark' ? 'text-white/60 sm:text-white/40' : 'text-black/[0.5] sm:text-black/[0.3]'
+              className={`flex flex-col sm:flex-row justify-center items-center gap-0 sm:gap-6 sm:justify-between w-full text-[20vw] sm:text-[10vw] md:text-[12vw] font-big-shoulders font-black leading-none uppercase whitespace-nowrap select-none scale-y-[1.0] scale-x-[0.9] tracking-[-0.05em] origin-center ${theme === 'dark' ? 'text-white/40' : 'text-black/[0.3]'
                 }`}
             >
               <span>ASWIN</span>
@@ -81,7 +81,7 @@ export default memo(function Home() {
             </h1>
 
             {/* Glassy Black Spotlight Glow - ONLY IN LIGHT MODE */}
-            {theme === 'light' && !isMobile && (
+            {theme === 'light' && (
               <motion.div
                 className="absolute inset-0 pointer-events-none z-[2] mix-blend-multiply opacity-10"
                 style={{
@@ -90,23 +90,21 @@ export default memo(function Home() {
               />
             )}
 
-            {/* Revealed version of the text - Desktop only */}
-            {!isMobile && (
-              <motion.h1
-                className={`absolute inset-0 flex flex-col sm:flex-row justify-center items-center gap-0 sm:gap-6 sm:justify-between w-full px-[2vw] sm:px-[5vw] md:px-[10vw] text-[20vw] sm:text-[10vw] md:text-[12vw] font-big-shoulders font-black leading-none uppercase whitespace-nowrap select-none scale-y-[1.0] scale-x-[0.9] tracking-[-0.05em] origin-center ${theme === 'dark' ? 'text-white' : 'text-black'
-                  }`}
-                style={{
-                  WebkitMaskImage: maskImage,
-                  maskImage: maskImage,
-                  textShadow: theme === 'light'
-                    ? '0 15px 45px rgba(0,0,0,0.2), 0 5px 15px rgba(0,0,0,0.1)'
-                    : '0 20px 50px rgba(0,0,0,0.5), 0 0 20px rgba(255,255,255,0.05)'
-                }}
-              >
-                <span>ASWIN</span>
-                <span>SIVADAS</span>
-              </motion.h1>
-            )}
+            {/* Revealed version of the text */}
+            <motion.h1
+              className={`absolute inset-0 flex flex-col sm:flex-row justify-center items-center gap-0 sm:gap-6 sm:justify-between w-full px-[2vw] sm:px-[5vw] md:px-[10vw] text-[20vw] sm:text-[10vw] md:text-[12vw] font-big-shoulders font-black leading-none uppercase whitespace-nowrap select-none scale-y-[1.0] scale-x-[0.9] tracking-[-0.05em] origin-center ${theme === 'dark' ? 'text-white' : 'text-black'
+                }`}
+              style={{
+                WebkitMaskImage: maskImage,
+                maskImage: maskImage,
+                textShadow: theme === 'light'
+                  ? '0 15px 45px rgba(0,0,0,0.2), 0 5px 15px rgba(0,0,0,0.1)'
+                  : '0 20px 50px rgba(0,0,0,0.5), 0 0 20px rgba(255,255,255,0.05)'
+              }}
+            >
+              <span>ASWIN</span>
+              <span>SIVADAS</span>
+            </motion.h1>
           </motion.div>
         </motion.div>
       </div>
